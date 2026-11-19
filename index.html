@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estudos PMI-ACP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f4ef; --card:#fff; --ink:#1d1b18; --muted:#6b665d; --line:#e4dfd4;
+  --mindset:#6d4fd8; --leadership:#d0612b; --product:#16897a; --delivery:#2a63c4;
+  --ok:#1f8a4c; --bad:#c23b3b; --accent:#1d1b18;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#16150f; --card:#211f19; --ink:#f1ede4; --muted:#a59f93; --line:#353128; --accent:#f1ede4;
+    --mindset:#9d86f0; --leadership:#ee8c5a; --product:#3fc0ad; --delivery:#6d9cf0; --ok:#4cc27e; --bad:#ec6b6b; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "IBM Plex Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:700;line-height:1.2;margin:0 0 .5em}
+h1{font-size:1.7rem} h2{font-size:1.4rem} h3{font-size:1.08rem;margin-top:1.4em}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{max-width:980px;margin:0 auto;padding:14px 18px 0;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 18px}
+.brand{font-family:Fraunces,serif;font-weight:700;font-size:1.2rem;margin-right:auto}
+.brand span{color:var(--muted);font-weight:500}
+nav{max-width:980px;margin:0 auto;padding:8px 12px 0;display:flex;gap:2px;overflow-x:auto}
+nav a{padding:8px 12px;border-bottom:3px solid transparent;color:var(--muted);text-decoration:none;font-weight:500;white-space:nowrap}
+nav a.on{color:var(--ink);border-color:var(--ink)}
+main{max-width:980px;margin:0 auto;padding:24px 18px 80px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:16px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.muted{color:var(--muted)} .small{font-size:.88rem}
+.dom{display:inline-block;font-size:.75rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:99px;color:#fff}
+.btn{display:inline-flex;align-items:center;gap:6px;font:inherit;font-weight:600;padding:10px 16px;border-radius:10px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--ink)}
+.btn:disabled{opacity:.4;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;padding:7px 13px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.opt{display:block;width:100%;text-align:left;font:inherit;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt.sel{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.opt.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 10%,var(--card))}
+.opt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,var(--card))}
+.opt:disabled{cursor:default}
+.expl{border-left:4px solid var(--ink);padding:10px 14px;margin-top:12px;background:color-mix(in srgb,var(--ink) 4%,var(--card));border-radius:0 8px 8px 0}
+.progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.progress>i{display:block;height:100%;background:var(--ink)}
+.summary ul{padding-left:1.2em;margin:.4em 0} .summary li{margin:.25em 0}
+.summary table{border-collapse:collapse;width:100%;font-size:.93rem;margin:.6em 0}
+.summary td,.summary th{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+.summary th{background:color-mix(in srgb,var(--ink) 5%,var(--card))}
+.tip{background:color-mix(in srgb,#e8b931 18%,var(--card));border:1px solid color-mix(in srgb,#e8b931 50%,var(--line));border-radius:10px;padding:10px 14px;margin:12px 0}
+.flash{min-height:230px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;cursor:pointer;user-select:none;padding:30px}
+.flash .term{font-family:Fraunces,serif;font-size:1.6rem;font-weight:700}
+.flash .def{font-size:1.05rem;max-width:620px}
+.qnav{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.qnav button{width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:.82rem;cursor:pointer}
+.qnav button.ans{background:color-mix(in srgb,var(--ink) 14%,var(--card))}
+.qnav button.cur{outline:2px solid var(--ink)}
+.qnav button.flag{border-color:#e8a317;border-width:2px}
+.timer{font-variant-numeric:tabular-nums;font-weight:600}
+.stat{font-family:Fraunces,serif;font-size:2rem;font-weight:700}
+.dbar{display:grid;grid-template-columns:110px 1fr 54px;gap:10px;align-items:center;margin:8px 0}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:20;padding:20px}
+.modal .card{max-width:420px}
+.rev{border-top:1px solid var(--line);padding:14px 0}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar"><div class="brand">PMI-ACP <span>· caderno de estudos</span></div></div>
+  <nav id="nav"></nav>
+</header>
+<main id="app"></main>
+<div id="modal"></div>
+
+<script>
+// ================== DADOS ==================
+const DOM = {
+  mindset:{nome:'Mindset',peso:28,cor:'var(--mindset)'},
+  leadership:{nome:'Leadership',peso:25,cor:'var(--leadership)'},
+  product:{nome:'Product',peso:19,cor:'var(--product)'},
+  delivery:{nome:'Delivery',peso:28,cor:'var(--delivery)'}
+};
+const domTag = d => `<span class="dom" style="background:${DOM[d].cor}">${DOM[d].nome}</span>`;
+
+const RESUMOS = {
+mindset:`
+<p class="muted">O domínio com mais peso, junto com Delivery. Aqui a prova verifica se você <b>pensa</b> de forma ágil, e não só se conhece as cerimônias.</p>
+<h3>Manifesto Ágil: os 4 valores</h3>
+<ul>
+<li><b>Indivíduos e interações</b> mais que processos e ferramentas</li>
+<li><b>Software em funcionamento</b> mais que documentação abrangente</li>
+<li><b>Colaboração com o cliente</b> mais que negociação de contratos</li>
+<li><b>Responder a mudanças</b> mais que seguir um plano</li>
+</ul>
+<p class="small muted">Os itens à direita continuam tendo valor. Os da esquerda é que valem mais.</p>
+<h3>Os 12 princípios (resumidos)</h3>
+<ol class="small">
+<li>Prioridade: satisfazer o cliente com entregas cedo e contínuas de valor.</li>
+<li>Mudanças de requisito são bem-vindas, mesmo tarde, como vantagem competitiva.</li>
+<li>Entregar com frequência: semanas em vez de meses.</li>
+<li>Negócio e desenvolvimento trabalham juntos diariamente.</li>
+<li>Construir em torno de pessoas motivadas: dar ambiente, apoio e confiança.</li>
+<li>Conversa face a face é o meio mais eficaz de comunicação.</li>
+<li>Produto funcionando é a principal medida de progresso.</li>
+<li>Ritmo sustentável, que possa ser mantido indefinidamente.</li>
+<li>Atenção contínua à excelência técnica e ao bom design.</li>
+<li>Simplicidade: maximizar o trabalho que <i>não</i> precisa ser feito.</li>
+<li>As melhores arquiteturas e designs emergem de equipes auto-organizadas.</li>
+<li>Em intervalos regulares, a equipe reflete e ajusta seu comportamento.</li>
+</ol>
+<h3>Comportamentos da mentalidade ágil</h3>
+<ul>
+<li><b>Ser ágil vs. fazer ágil:</b> praticar cerimônias sem a mentalidade não gera agilidade.</li>
+<li><b>Foco em valor e resultados</b>, não em produção de artefatos.</li>
+<li><b>Transparência:</b> trabalho visível (quadros, radiadores de informação), problemas expostos cedo.</li>
+<li><b>Segurança psicológica:</b> as pessoas podem errar, discordar e perguntar sem medo. É a base para inspeção e adaptação.</li>
+<li><b>Mentalidade de crescimento e experimentação:</b> hipótese → experimento curto → aprendizado validado. "Falhar rápido" significa aprender barato.</li>
+<li><b>Pensamento sistêmico:</b> olhar o fluxo ponta a ponta. Muitas causas de problema estão no sistema, não nas pessoas.</li>
+<li><b>Melhoria contínua (Kaizen)</b> como hábito, não como evento.</li>
+</ul>
+<h3>Complexidade e escolha de abordagem</h3>
+<table>
+<tr><th>Cynefin</th><th>Característica</th><th>Resposta</th></tr>
+<tr><td>Claro</td><td>Causa e efeito óbvios</td><td>Perceber → categorizar → responder (boas práticas)</td></tr>
+<tr><td>Complicado</td><td>Exige análise/especialista</td><td>Perceber → analisar → responder</td></tr>
+<tr><td>Complexo</td><td>Causa e efeito só visíveis em retrospecto</td><td>Sondar → perceber → responder (experimentos). <b>É onde o ágil brilha.</b></td></tr>
+<tr><td>Caótico</td><td>Sem relação discernível</td><td>Agir → perceber → responder (estabilizar primeiro)</td></tr>
+</table>
+<ul>
+<li><b>Matriz de Stacey:</b> incerteza de requisitos × incerteza técnica. Quanto mais incerto, mais adequado o ágil.</li>
+<li><b>Ciclos de vida:</b> preditivo, iterativo, incremental, ágil (iterativo + incremental) e <b>híbrido</b>.</li>
+<li><b>Tailoring:</b> adaptar o método ao contexto (cultura, equipe, regulação, risco). Não existe um método único para tudo.</li>
+</ul>
+<h3>Agilidade empresarial (Enterprise Agility)</h3>
+<ul>
+<li>Agilidade além das equipes: portfólio, financiamento, RH, governança, liderança.</li>
+<li>Financiar <b>produtos e fluxos de valor</b> em vez de projetos com escopo fixo anual.</li>
+<li>Equipes estáveis e de longa duração; o trabalho vai até a equipe, e não o contrário.</li>
+<li>Frameworks de escala: SAFe, LeSS, Disciplined Agile, Scrum@Scale, Nexus. Saber que existem e para que servem basta.</li>
+<li>A liderança precisa mudar de comando e controle para propósito, contexto e remoção de restrições sistêmicas.</li>
+</ul>
+<div class="tip"><b>Na prova:</b> a resposta "ágil" costuma ser a que preserva a colaboração, aceita a mudança com base em valor, cria transparência e trata erro como aprendizado. Desconfie de opções que punem, escondem informação ou impõem processo de cima para baixo.</div>
+`,
+leadership:`
+<p class="muted">25% da prova. Trata da liderança servidora, do desenvolvimento da equipe, de conflitos e do engajamento de stakeholders.</p>
+<h3>Liderança servidora</h3>
+<ul>
+<li>Serve primeiro e lidera depois: <b>remove impedimentos</b>, protege a equipe de interrupções, facilita, faz coaching e cria um ambiente de confiança.</li>
+<li>Não é passividade: o líder servidor dá propósito e contexto e cobra os acordos.</li>
+<li>Prefere <b>perguntar e facilitar</b> a decidir pela equipe.</li>
+</ul>
+<h3>Equipes auto-organizadas e empoderadas</h3>
+<ul>
+<li>A equipe decide <i>como</i> fazer o trabalho; o PO decide <i>o que</i> tem mais valor.</li>
+<li><b>Generalista-especialista (T-shaped):</b> profundidade em uma área e amplitude em várias. Reduz gargalos.</li>
+<li><b>Acordos de trabalho / team charter:</b> criados pela própria equipe (valores, horários, comunicação, DoD).</li>
+<li>Equipes estáveis, de 3 a 9 pessoas, multifuncionais e, idealmente, co-localizadas (comunicação osmótica).</li>
+</ul>
+<h3>Modelos de desenvolvimento</h3>
+<table>
+<tr><th>Tuckman</th><th>O que acontece</th><th>Papel do líder</th></tr>
+<tr><td>Forming</td><td>Educação, incerteza</td><td>Dirigir: dar clareza, objetivos e papéis</td></tr>
+<tr><td>Storming</td><td>Conflitos, disputa de papéis</td><td>Coaching: facilitar conflitos e acordos</td></tr>
+<tr><td>Norming</td><td>Normas aceitas, coesão</td><td>Apoiar</td></tr>
+<tr><td>Performing</td><td>Alta performance, autonomia</td><td>Delegar e sair do caminho</td></tr>
+<tr><td>Adjourning</td><td>Encerramento</td><td>Reconhecer e celebrar</td></tr>
+</table>
+<ul>
+<li><b>Shu-Ha-Ri:</b> Shu (segue as regras), Ha (adapta as regras), Ri (transcende as regras). O estilo de liderança acompanha: ensinar → orientar → aconselhar.</li>
+<li><b>Liderança situacional:</b> dirigir, treinar, apoiar e delegar, conforme a maturidade.</li>
+</ul>
+<h3>Motivação (Daniel Pink)</h3>
+<p><b>Autonomia, maestria e propósito</b> motivam trabalho criativo mais que recompensas extrínsecas. Bônus individuais ou por velocidade tendem a distorcer comportamentos.</p>
+<h3>Níveis de conflito (Speed Leas)</h3>
+<table>
+<tr><th>Nível</th><th>Sinal</th><th>Abordagem</th></tr>
+<tr><td>1. Problema a resolver</td><td>Foco no problema, informação aberta</td><td>Colaboração / consenso</td></tr>
+<tr><td>2. Desacordo</td><td>Autoproteção, conversas em particular</td><td>Apoio, ajudar a dar voz, empoderar</td></tr>
+<tr><td>3. Competição (contest)</td><td>Vencer passa a importar mais; formam-se lados</td><td>Facilitação, negociação, acomodação</td></tr>
+<tr><td>4. Cruzada</td><td>Proteger o próprio grupo; ideologia</td><td>Diplomacia, mediação estruturada</td></tr>
+<tr><td>5. Guerra mundial</td><td>Destruir o outro</td><td>Separar as partes, evitar danos</td></tr>
+</table>
+<p class="small">Nos níveis 1 e 2, o líder deixa a equipe resolver e só facilita.</p>
+<h3>Inteligência emocional e comunicação</h3>
+<ul>
+<li>Autoconsciência, autogestão, consciência social e gestão de relacionamentos.</li>
+<li>Elogios em público, conversas difíceis <b>em particular</b>.</li>
+<li>Escuta ativa, perguntas poderosas e feedback específico sobre comportamento.</li>
+</ul>
+<h3>Tomada de decisão participativa</h3>
+<ul>
+<li><b>Fist of five / Roman voting / thumbs:</b> votação rápida; quem discorda explica a preocupação antes de seguir.</li>
+<li><b>Dot voting / 100 pontos</b> para priorizar entre opções.</li>
+<li><b>Delegation poker:</b> combina o nível de delegação de cada tipo de decisão (de "eu decido" até "a equipe decide").</li>
+</ul>
+<h3>Stakeholders e equipes distribuídas</h3>
+<ul>
+<li>Engajar cedo e com frequência: reviews, demos, radiadores de informação. Entender a preocupação de quem resiste.</li>
+<li>Equipes distribuídas: horários de sobreposição, ferramentas de colaboração, acordos explícitos, encontro presencial inicial quando possível, câmeras ligadas.</li>
+<li>Impedimentos organizacionais (aprovações lentas, dependências) são escalados e trabalhados pelo líder junto às áreas envolvidas.</li>
+</ul>
+<div class="tip"><b>Na prova:</b> a melhor ação quase nunca é "o líder decide", "escalar imediatamente" ou "repreender". Prefira facilitar, conversar com a pessoa, fazer coaching e deixar a equipe resolver, com o líder removendo obstáculos.</div>
+`,
+product:`
+<p class="muted">19% da prova. Trata de visão, backlog, priorização por valor e validação com o cliente.</p>
+<h3>Visão e roadmap</h3>
+<ul>
+<li><b>Visão do produto:</b> o porquê, para quem e qual o diferencial. Exemplos de ferramenta: elevator pitch, product box, product vision board.</li>
+<li><b>Roadmap:</b> evolução planejada por temas ou resultados; é flexível e revisado com frequência.</li>
+<li>Medir <b>resultados (outcomes)</b> como adoção, retenção, receita e satisfação, e não apenas <b>saídas (outputs)</b> como quantidade de features.</li>
+</ul>
+<h3>Product Owner e backlog</h3>
+<ul>
+<li>O PO maximiza o valor, ordena o backlog e é o ponto único de decisão sobre prioridade. Colabora com a equipe e os stakeholders.</li>
+<li><b>Backlog DEEP:</b> Detalhado apropriadamente (topo mais detalhado), Estimado, Emergente, Priorizado.</li>
+<li><b>Refinamento</b> contínuo e colaborativo, just-in-time. Nada de detalhar tudo meses antes.</li>
+<li><b>Definition of Ready</b> (opcional): critério para um item entrar na sprint.</li>
+</ul>
+<h3>Histórias de usuário</h3>
+<ul>
+<li>Formato: <i>Como &lt;persona&gt;, quero &lt;ação&gt;, para &lt;benefício&gt;</i>.</li>
+<li><b>3 Cs:</b> Cartão, Conversa, Confirmação (critérios de aceite).</li>
+<li><b>INVEST:</b> Independente, Negociável, Valiosa, Estimável, Small (pequena), Testável.</li>
+<li><b>Critérios de aceite</b> são específicos da história. Formato Gherkin: <i>Dado… Quando… Então…</i>. A <b>DoD</b> vale para todas as histórias.</li>
+<li><b>Épico → feature → história → tarefa.</b> Fatiar <b>verticalmente</b> (uma fatia de valor ponta a ponta), não por camada técnica.</li>
+<li>Formas de fatiar: por caminho do fluxo, regra de negócio, tipo de dado, operação (CRUD), caminho feliz vs. exceções, plataforma.</li>
+</ul>
+<h3>Priorização</h3>
+<table>
+<tr><th>Técnica</th><th>Ideia</th></tr>
+<tr><td>MoSCoW</td><td>Must, Should, Could, Won't (desta vez)</td></tr>
+<tr><td>Kano</td><td>Básicas (ausência irrita), de desempenho (mais é melhor), encantadoras (surpreendem), indiferentes</td></tr>
+<tr><td>WSJF</td><td>Custo do atraso ÷ duração (ou tamanho). Maior WSJF primeiro</td></tr>
+<tr><td>Valor × risco</td><td>Alto valor e alto risco primeiro (aprende cedo); baixo valor e alto risco, evitar</td></tr>
+<tr><td>Dot voting / 100 pontos / comprar features</td><td>Stakeholders distribuem "moedas" entre os itens</td></tr>
+<tr><td>ROI, VPL, TIR</td><td>Valor financeiro (maior é melhor; payback menor é melhor)</td></tr>
+</table>
+<h3>Descoberta e validação</h3>
+<ul>
+<li><b>MVP:</b> menor esforço para testar uma hipótese com usuários reais e aprender. <b>MMF</b> é a menor funcionalidade que já entrega valor ao mercado.</li>
+<li><b>Personas:</b> usuários arquetípicos que orientam decisões. <b>Story mapping:</b> jornada do usuário na horizontal e detalhe na vertical; os cortes horizontais viram releases.</li>
+<li><b>Desenvolvimento orientado a hipóteses:</b> "Acreditamos que X resultará em Y; saberemos quando ver Z".</li>
+<li>Feedback frequente: reviews e demos, protótipos, wireframes, testes A/B, entrevistas.</li>
+<li><b>Value Stream Mapping:</b> mapeia o fluxo ponta a ponta para achar espera e desperdício. Eficiência do ciclo = tempo de trabalho ÷ lead time.</li>
+</ul>
+<div class="tip"><b>Na prova:</b> se o cliente só vê o produto no fim, a resposta é antecipar o feedback. Se o PO prioriza sozinho e às cegas, a resposta é colaborar e usar critérios de valor. A prioridade é do PO, mas é informada pela equipe (risco e dependências) e pelos stakeholders.</div>
+`,
+delivery:`
+<p class="muted">28% da prova. Trata de como o trabalho flui: cadências, fluxo, estimativa, métricas, qualidade e riscos.</p>
+<h3>Scrum em uma tabela</h3>
+<table>
+<tr><th>Elemento</th><th>Resumo</th></tr>
+<tr><td>Papéis</td><td>Product Owner, Scrum Master e Developers</td></tr>
+<tr><td>Sprint</td><td>Até 1 mês, cadência fixa. Escopo negociável, objetivo estável</td></tr>
+<tr><td>Planning</td><td>Por quê (meta), o quê e como. Até 8h para sprint de 1 mês</td></tr>
+<tr><td>Daily</td><td>15 min, da equipe para a equipe: progresso rumo à meta e impedimentos</td></tr>
+<tr><td>Review</td><td>Inspecionar o incremento com stakeholders e adaptar o backlog (até 4h)</td></tr>
+<tr><td>Retrospectiva</td><td>Inspecionar o processo e escolher melhorias (até 3h)</td></tr>
+<tr><td>Artefatos</td><td>Product backlog (meta do produto), sprint backlog (meta da sprint), incremento (DoD)</td></tr>
+</table>
+<p class="small">Se surge um pedido urgente no meio da sprint, ele vai para o PO. Só o PO pode cancelar uma sprint, quando a meta se torna obsoleta.</p>
+<h3>Kanban e Lean</h3>
+<ul>
+<li>Práticas Kanban: visualizar o fluxo, <b>limitar o WIP</b>, gerenciar o fluxo, políticas explícitas, ciclos de feedback e melhoria colaborativa. Sistema <b>puxado</b>.</li>
+<li>"Pare de começar, comece a terminar."</li>
+<li><b>Desperdícios Lean</b> (software): trabalho parcialmente feito, funcionalidades extras, reaprendizado, handoffs, atrasos/espera, troca de tarefas, defeitos. Pense em DOWNTIME.</li>
+<li>Princípios Lean: eliminar desperdício, qualidade embutida, criar conhecimento, adiar compromisso, entregar rápido, respeitar pessoas, otimizar o todo.</li>
+</ul>
+<h3>XP e excelência técnica</h3>
+<ul>
+<li><b>TDD:</b> teste antes do código. Ciclo vermelho → verde → refatorar.</li>
+<li><b>Programação em par</b> (qualidade e disseminação de conhecimento), <b>integração contínua</b>, refatoração, design simples, propriedade coletiva do código, pequenos releases, padrões de código.</li>
+<li><b>CI/CD e DevOps:</b> integração várias vezes ao dia com build e testes automatizados; entrega e deploy contínuos reduzem o trabalho parado.</li>
+<li><b>BDD/ATDD:</b> testes de aceitação definidos junto com o negócio.</li>
+</ul>
+<h3>Estimativa</h3>
+<ul>
+<li><b>Story points:</b> estimativa relativa de esforço, complexidade e incerteza. Vale só dentro da equipe.</li>
+<li><b>Planning poker</b> (Fibonacci): quando há divergência, os extremos explicam o raciocínio e a equipe estima de novo.</li>
+<li><b>Affinity estimating, T-shirt sizing</b> para muitos itens rapidamente. Ideal days como alternativa.</li>
+<li>Quem faz o trabalho estima.</li>
+</ul>
+<h3>Métricas</h3>
+<table>
+<tr><th>Métrica</th><th>Leitura</th></tr>
+<tr><td>Velocidade</td><td>Pontos concluídos por iteração. Use a média para prever. <b>Não compare entre equipes</b></td></tr>
+<tr><td>Throughput</td><td>Itens concluídos por período</td></tr>
+<tr><td>Lead time / cycle time</td><td>Lead: do pedido até a entrega. Cycle: do início do trabalho até a conclusão</td></tr>
+<tr><td>Lei de Little</td><td>Lead time médio = WIP ÷ throughput</td></tr>
+<tr><td>Burndown</td><td>Trabalho restante. Linha plana: nada sendo concluído</td></tr>
+<tr><td>Burnup</td><td>Trabalho concluído e escopo total; <b>mostra mudança de escopo</b></td></tr>
+<tr><td>CFD</td><td>Faixas por etapa. Faixa que se alarga indica gargalo/WIP crescente; a distância horizontal é o lead time</td></tr>
+<tr><td>Defeitos escapados</td><td>Defeitos encontrados após o release: indicador de qualidade</td></tr>
+</table>
+<h3>Qualidade, riscos e melhoria</h3>
+<ul>
+<li><b>Definition of Done:</b> o padrão de qualidade de todo incremento. Sem a DoD, o item não está pronto e não vai para a review como concluído.</li>
+<li><b>Dívida técnica:</b> torne-a visível, coloque no backlog e reserve capacidade para pagá-la.</li>
+<li><b>Spike:</b> pesquisa com timebox para reduzir incerteza técnica ou permitir estimar.</li>
+<li><b>Backlog ajustado ao risco:</b> respostas a riscos viram itens do backlog. <b>Risk burndown chart</b> acompanha a exposição ao longo do tempo.</li>
+<li><b>Retrospectivas:</b> poucas ações concretas, com responsável, acompanhadas na próxima retro. Varie os formatos (Start/Stop/Continue, 4Ls, Sailboat, 5 porquês, espinha de peixe).</li>
+</ul>
+<div class="tip"><b>Na prova:</b> perguntas com números costumam envolver média de velocidade, Lei de Little, WSJF, eficiência do ciclo ou leitura de burndown/burnup/CFD. Treine as contas no simulado.</div>
+`
+};
+
+const DICAS = [
+  'Pense como um líder servidor: facilite, faça coaching e remova impedimentos. Não comande.',
+  'Antes de escalar, converse com a equipe ou a pessoa envolvida.',
+  'A equipe decide como fazer; o PO decide o que tem mais valor.',
+  'Transparência e radiadores de informação são melhores que relatórios separados.',
+  'Mudança é bem-vinda, mas passa pelo PO e pelo backlog.',
+  'Valor e resultado acima de seguir o plano ou cumprir artefatos.',
+  'Leia o final da pergunta: "PRIMEIRO", "MELHOR", "MAIS provável".',
+  'Elimine as opções que punem, escondem informação ou impõem decisões.'
+];
+
+// q: texto, o: opções (a primeira é a correta, embaralhadas na exibição), e: explicação
+const Q = [
+// ---------- MINDSET ----------
+{d:'mindset',q:'Recém-chegados ao ágil, os membros da equipe pedem ao gerente aprovação para cada mudança de tarefa durante a sprint. O que o líder deve fazer?',
+o:['Incentivar a equipe a decidir como organizar o próprio trabalho, ficando disponível para remover impedimentos','Criar um formulário de solicitação de mudança para registrar as aprovações','Aprovar rapidamente cada pedido para não atrasar a sprint','Designar um líder técnico para aprovar as mudanças no lugar do gerente'],
+e:'Equipes ágeis se auto-organizam. O líder servidor desenvolve a autonomia e não centraliza as decisões, nem em si nem em outra pessoa.'},
+{d:'mindset',q:'Um cliente exige um contrato com escopo fechado e totalmente detalhado antes de qualquer trabalho começar. Qual abordagem está mais alinhada aos valores ágeis?',
+o:['Propor um contrato que permita colaboração contínua e ajuste de escopo com base em feedback, por exemplo com escopo variável dentro de custo e prazo fixos','Recusar o contrato, porque contratos não são ágeis','Aceitar o escopo fixo e tratar qualquer mudança como pedido formal de change','Detalhar todos os requisitos em uma fase de análise longa para reduzir riscos'],
+e:'"Colaboração com o cliente mais que negociação de contratos": o contrato continua tendo valor, mas deve favorecer colaboração e adaptação.'},
+{d:'mindset',q:'Segundo os princípios ágeis, qual é a principal medida de progresso?',
+o:['Produto (software) funcionando','Percentual de tarefas concluídas no cronograma','Velocidade da equipe','Quantidade de documentação aprovada'],
+e:'Princípio 7: o produto em funcionamento é a medida primária de progresso.'},
+{d:'mindset',q:'Nas retrospectivas, os membros evitam falar de erros e o clima é de silêncio. O que o líder deve fazer PRIMEIRO?',
+o:['Fortalecer a segurança psicológica: mostrar vulnerabilidade, focar no sistema e não em culpados, e combinar regras de confidencialidade','Exigir que cada membro aponte pelo menos um erro de outro colega','Substituir a retrospectiva por um questionário anônimo permanente','Relatar o problema ao gerente funcional da equipe'],
+e:'Sem segurança psicológica não há inspeção e adaptação de verdade. O líder modela o comportamento e cria um ambiente sem culpa.'},
+{d:'mindset',q:'Uma equipe enfrenta um problema em que causa e efeito só ficam claros depois de agir. Pelo Cynefin, qual a abordagem recomendada?',
+o:['Sondar, perceber e responder, com experimentos seguros','Perceber, categorizar e aplicar a boa prática','Contratar um especialista para analisar e definir a solução','Agir imediatamente para estabilizar e depois analisar'],
+e:'É o domínio complexo: as práticas emergem de experimentos. "Agir primeiro" é para o caótico, e "analisar" é para o complicado.'},
+{d:'mindset',q:'Um projeto tem requisitos estáveis e bem conhecidos, tecnologia dominada, forte regulação e uma entrega única no final. Qual afirmação é mais correta?',
+o:['Uma abordagem preditiva ou híbrida pode ser a mais adequada; o método deve ser adaptado ao contexto','O projeto deve usar Scrum puro, pois o ágil sempre é superior','O projeto deve ser cancelado, porque não permite entregas incrementais','A equipe deve usar Kanban para evitar planejamento'],
+e:'Baixa incerteza favorece a abordagem preditiva. Escolher e adaptar a abordagem (tailoring) faz parte da mentalidade ágil.'},
+{d:'mindset',q:'Um diretor pede à equipe um relatório de status semanal em Word, além das cerimônias. Qual é a MELHOR resposta?',
+o:['Mostrar os radiadores de informação (quadro, burnup) disponíveis a qualquer momento e convidá-lo para as reviews, entendendo o que ele precisa saber','Recusar, porque documentação não é ágil','Pedir ao Scrum Master que produza o relatório toda sexta-feira','Fazer o relatório e parar de atualizar o quadro, para não duplicar esforço'],
+e:'Transparência por meio de informação visível e sempre atualizada. Entender a necessidade do stakeholder antes de criar artefatos novos.'},
+{d:'mindset',q:'Um experimento mostrou que uma funcionalidade recém-lançada não gera o uso esperado. Como a equipe deve encarar o resultado?',
+o:['Como aprendizado validado: compartilhar o resultado e ajustar o backlog com o PO','Como falha da equipe, que deve ser registrada na avaliação de desempenho','Ignorar os dados e seguir o roadmap original','Adicionar mais funcionalidades até o uso aumentar'],
+e:'Falhar rápido e barato gera aprendizado. A mentalidade ágil adapta o plano com base em evidências.'},
+{d:'mindset',q:'Um desenvolvedor quer criar um framework genérico para atender possíveis necessidades futuras que ninguém pediu. O que fazer?',
+o:['Implementar a solução mais simples que atende à necessidade atual e evoluir conforme surgirem necessidades reais','Aprovar, já que isso economizará tempo no futuro','Pedir ao arquiteto corporativo que desenhe o framework completo','Construir o framework fora do horário para não afetar a sprint'],
+e:'Princípio da simplicidade: maximizar a quantidade de trabalho não realizado (YAGNI).'},
+{d:'mindset',q:'A equipe faz horas extras há três sprints seguidas para cumprir os compromissos. Qual é a MELHOR ação?',
+o:['Discutir com a equipe o ritmo sustentável e ajustar o planejamento à capacidade real','Elogiar o esforço e manter o ritmo até o release','Aumentar a velocidade-alvo para criar senso de urgência','Adicionar pessoas temporárias na próxima sprint'],
+e:'Princípio 8: ritmo sustentável. Horas extras constantes reduzem qualidade e moral.'},
+{d:'mindset',q:'Várias equipes ágeis existem na empresa, mas o orçamento continua anual e por projeto e a aprovação do portfólio leva meses. Qual é o principal entrave à agilidade?',
+o:['Restrições sistêmicas da organização: é preciso evoluir para financiamento por produto/fluxo de valor e governança mais leve','Falta de treinamento em Scrum para os desenvolvedores','Escolha errada da ferramenta de gestão de backlog','Sprints longas demais nas equipes'],
+e:'Agilidade empresarial exige mudar portfólio, financiamento e governança, não só as equipes. É o pensamento sistêmico.'},
+{d:'mindset',q:'Ao sugerir uma nova prática, a equipe responde: "sempre fizemos assim". Como o coach deve agir?',
+o:['Propor um experimento com prazo e métrica definidos, para a equipe avaliar o resultado','Impor a nova prática com apoio da gerência','Desistir da mudança para não gerar conflito','Documentar a resistência e escalar ao RH'],
+e:'Mentalidade de crescimento e experimentação: mudanças pequenas, seguras e mensuráveis reduzem a resistência.'},
+{d:'mindset',q:'A organização exige marcos de fase-gate, mas a equipe trabalha em sprints. Qual é a abordagem MAIS adequada?',
+o:['Adotar uma abordagem híbrida, relacionando os incrementos das sprints aos marcos e mostrando o valor já entregue','Abandonar as sprints e voltar ao cascata','Ignorar os marcos, pois não são ágeis','Fazer duas sprints extras de documentação antes de cada gate'],
+e:'O híbrido é legítimo. Tailoring significa adaptar o método às restrições do ambiente sem perder o feedback incremental.'},
+{d:'mindset',q:'A equipe passou duas semanas configurando uma ferramenta complexa de gestão antes de entregar qualquer coisa. Qual valor ágil está sendo esquecido?',
+o:['Indivíduos e interações mais que processos e ferramentas','Responder a mudanças mais que seguir um plano','Colaboração com o cliente mais que negociação de contratos','Excelência técnica e bom design'],
+e:'Ferramentas apoiam, mas não substituem a interação. Um quadro simples e conversas costumam bastar no início.'},
+{d:'mindset',q:'Perto do fim do release, o cliente pede uma mudança importante de requisito. Qual a postura ágil?',
+o:['Acolher a mudança, avaliar o valor com o PO e repriorizar o backlog','Recusar, porque o escopo do release está congelado','Aceitar e incluir imediatamente na sprint atual','Pedir aprovação formal do comitê de mudanças antes de qualquer análise'],
+e:'Princípio 2: mudanças são bem-vindas, mesmo tarde. O PO decide onde o item entra no backlog.'},
+{d:'mindset',q:'Um arquiteto externo quer definir todo o design da solução antes do início da primeira iteração. O que é MAIS alinhado ao ágil?',
+o:['Colaborar com a equipe em uma arquitetura inicial mínima (guardrails) e deixar o design detalhado emergir com as iterações','Aceitar o design completo para reduzir retrabalho','Proibir a participação do arquiteto','Fazer uma sprint zero de seis meses apenas de arquitetura'],
+e:'Princípio 11: as melhores arquiteturas emergem de equipes auto-organizadas, com uma visão arquitetural leve.'},
+{d:'mindset',q:'Uma equipe quer adotar práticas de Scrum, Kanban e XP ao mesmo tempo, adaptando-as ao seu contexto. Esse comportamento é:',
+o:['Adequado: escolher a forma de trabalho conforme o contexto é parte da mentalidade ágil','Inadequado, porque só se deve usar um framework','Permitido apenas depois de certificação em todos os frameworks','Proibido pelo Manifesto Ágil'],
+e:'"O contexto importa" (Disciplined Agile): as equipes escolhem e evoluem a própria forma de trabalho.'},
+
+// ---------- LEADERSHIP ----------
+{d:'leadership',q:'Dois membros discordam sobre uma solução técnica e já formaram "lados", e vencer parece mais importante que resolver. Em qual nível de conflito (Speed Leas) eles estão?',
+o:['Nível 3: competição (contest)','Nível 1: problema a resolver','Nível 2: desacordo','Nível 5: guerra mundial'],
+e:'Quando a vitória importa mais que o problema e surgem alianças, é competição. A abordagem é facilitar e negociar.'},
+{d:'leadership',q:'Uma equipe recém-formada tem atritos frequentes sobre papéis e jeitos de trabalhar. Em que fase de Tuckman ela está e o que o líder deve fazer?',
+o:['Storming: fazer coaching e facilitar a criação de acordos de trabalho','Forming: definir sozinho todos os papéis','Norming: delegar totalmente as decisões','Performing: não intervir'],
+e:'Storming é a fase dos conflitos. O líder faz coaching e facilita acordos, sem impor.'},
+{d:'leadership',q:'Um gerente de outra área pede diretamente a um desenvolvedor um trabalho "rápido" no meio da sprint. O que o Scrum Master deve fazer?',
+o:['Encaminhar o pedido ao Product Owner para avaliação no backlog, protegendo o foco da equipe','Deixar o desenvolvedor fazer, já que é rápido','Recusar o pedido sem conversar','Adicionar o item à sprint e remover outro de forma unilateral'],
+e:'O líder servidor protege a equipe de interrupções, e o PO é o dono da prioridade.'},
+{d:'leadership',q:'A equipe está desmotivada. O gerente propõe um bônus individual para quem completar mais story points. Qual a MELHOR recomendação?',
+o:['Aumentar autonomia, desenvolvimento e conexão com o propósito, pois bônus por pontos tende a distorcer as estimativas e a colaboração','Aceitar, pois recompensas financeiras sempre motivam','Aplicar o bônus apenas ao melhor da equipe','Trocar os membros desmotivados'],
+e:'Para trabalho criativo, autonomia, maestria e propósito (Pink) motivam mais. Métricas como alvo de recompensa são distorcidas.'},
+{d:'leadership',q:'Uma equipe iniciante segue as regras do Scrum à risca e pede orientação constante. Pelo Shu-Ha-Ri, qual estilo de liderança é mais adequado?',
+o:['Ensinar e orientar as práticas (estágio Shu)','Deixar a equipe adaptar livremente as regras (Ha)','Não oferecer orientação (Ri)','Substituir o Scrum por Kanban'],
+e:'No Shu o aprendiz segue as regras; o líder ensina. A autonomia aumenta com a maturidade.'},
+{d:'leadership',q:'Em uma votação fist of five sobre um plano, um membro mostra um dedo. O que fazer?',
+o:['Ouvir a preocupação dele antes de seguir com a decisão','Seguir, já que a maioria concorda','Pedir que ele mude o voto','Encerrar a votação e o líder decide'],
+e:'Votos baixos (1 ou 2) indicam preocupação séria. O processo pede que ela seja ouvida e tratada.'},
+{d:'leadership',q:'A equipe discute com frequência sobre horários de reunião, uso do chat e tempo de resposta. Qual a melhor ação?',
+o:['Facilitar a criação de acordos de trabalho definidos pela própria equipe','O Scrum Master define as regras e as comunica','Escalar o problema ao gerente funcional','Proibir o uso do chat'],
+e:'Acordos de trabalho (team charter) criados pela equipe aumentam o comprometimento e reduzem conflitos.'},
+{d:'leadership',q:'Uma equipe distribuída em três fusos horários sofre com mal-entendidos. Qual ação ajuda MAIS?',
+o:['Definir janelas de sobreposição, ferramentas de colaboração e acordos explícitos, com um encontro presencial inicial se possível','Concentrar toda a comunicação em e-mails formais','Dividir em três equipes independentes sem interação','Gravar as dailies para quem não puder participar e dispensar o resto'],
+e:'Equipes distribuídas precisam de mais intencionalidade na comunicação: sobreposição, ferramentas e acordos.'},
+{d:'leadership',q:'Um diretor influente é cético quanto ao ágil e critica a equipe em reuniões. Qual é a MELHOR abordagem?',
+o:['Envolvê-lo nas reviews, entender suas preocupações e mostrar o valor entregue a cada incremento','Evitar convidá-lo para as reuniões','Pedir ao patrocinador que o afaste do projeto','Provar com teoria que o ágil é melhor'],
+e:'Engajar stakeholders cedo e com frequência, com transparência e valor demonstrado, é a melhor forma de reduzir a resistência.'},
+{d:'leadership',q:'Durante a daily, um membro responde a um colega com irritação na frente de todos. O que o líder deve fazer?',
+o:['Manter a reunião focada e conversar com ele em particular depois, com empatia, para entender o que está acontecendo','Repreendê-lo na hora para dar exemplo','Ignorar, pois é assunto pessoal','Relatar imediatamente ao RH'],
+e:'Inteligência emocional: conversas difíceis em particular, buscando entender antes de julgar.'},
+{d:'leadership',q:'Só há uma pessoa de testes na equipe, e as histórias se acumulam aguardando validação. Qual a melhor solução de longo prazo?',
+o:['Desenvolver habilidades cruzadas (T-shaped), com pareamento, para a equipe toda compartilhar os testes','Contratar mais testadores para a fase final','Aumentar as horas do testador','Remover os testes da Definition of Done'],
+e:'Generalistas-especialistas reduzem gargalos e a equipe é dona da qualidade em conjunto.'},
+{d:'leadership',q:'Dois desenvolvedores pedem que o Scrum Master decida qual abordagem técnica usar. O que ele deve fazer?',
+o:['Facilitar a conversa para que eles avaliem as opções e cheguem juntos a uma decisão','Escolher a abordagem que achar melhor','Pedir ao PO para decidir','Usar as duas abordagens em paralelo'],
+e:'Nos níveis iniciais de conflito, o líder facilita e empodera, sem decidir pela equipe.'},
+{d:'leadership',q:'A equipe quer escolher a própria ferramenta de integração contínua. A empresa tem apenas restrições de segurança. Qual o melhor nível de delegação?',
+o:['Delegar a decisão à equipe dentro das restrições de segurança definidas','O gerente escolhe e informa a equipe','O arquiteto corporativo decide após consulta','Adiar a decisão até o fim do projeto'],
+e:'Empoderamento com limites claros (delegation poker): quem faz o trabalho decide como fazê-lo.'},
+{d:'leadership',q:'Qual característica é MAIS típica de uma equipe ágil de alta performance?',
+o:['Confiança mútua, objetivos compartilhados e autonomia para decidir como trabalhar','Hierarquia clara com um líder que distribui todas as tarefas','Membros altamente especializados que trabalham isolados','Metas individuais de produtividade'],
+e:'Equipes de alta performance são auto-organizadas, colaborativas e baseadas em confiança.'},
+{d:'leadership',q:'A equipe depende de uma aprovação de segurança da informação que leva três semanas, e isso trava as entregas. Qual é a MELHOR ação do líder?',
+o:['Trabalhar com a área de segurança para envolvê-la mais cedo e simplificar o fluxo, tratando como impedimento organizacional','Pedir que a equipe pule a aprovação','Aumentar a duração da sprint para quatro semanas','Aceitar o atraso como inevitável'],
+e:'Remover impedimentos sistêmicos é papel do líder servidor, colaborando com as outras áreas.'},
+
+// ---------- PRODUCT ----------
+{d:'product',q:'Uma história é grande demais para caber em uma sprint. Qual critério INVEST ela viola e o que fazer?',
+o:['Small (pequena): fatiar verticalmente em histórias menores que ainda entreguem valor','Independent: juntar com outra história','Valuable: remover do backlog','Testable: escrever casos de teste antes'],
+e:'Histórias devem caber em uma iteração. Fatiamento vertical preserva o valor ponta a ponta.'},
+{d:'product',q:'Qual forma de dividir a história "Cliente paga pedido" é MAIS adequada?',
+o:['Pagar com cartão de crédito / pagar com Pix / pagar com boleto','Criar a tela / criar a API / criar o banco de dados','Análise / desenvolvimento / testes','Front-end na sprint 1, back-end na sprint 2'],
+e:'O fatiamento vertical divide por fluxo ou regra de negócio, e cada fatia entrega valor. Dividir por camada ou fase é horizontal.'},
+{d:'product',q:'Na priorização MoSCoW, um item que os stakeholders aceitam deixar fora deste release é classificado como:',
+o:['Won\'t have (desta vez)','Could have','Should have','Must have'],
+e:'"Won\'t" significa "não desta vez". O item pode voltar em releases futuros.'},
+{d:'product',q:'Pelo modelo Kano, uma funcionalidade cuja ausência gera grande insatisfação, mas cuja presença não aumenta a satisfação, é:',
+o:['Básica (obrigatória)','Encantadora','De desempenho','Indiferente'],
+e:'Funcionalidades básicas são esperadas. Só são notadas quando faltam.'},
+{d:'product',q:'Com base no WSJF (custo do atraso ÷ tamanho), qual item deve vir primeiro? A: CoD 20, tamanho 10. B: CoD 12, tamanho 3. C: CoD 30, tamanho 15. D: CoD 8, tamanho 8.',
+o:['B (WSJF = 4)','C (maior custo do atraso)','A (WSJF = 2)','D (WSJF = 1)'],
+e:'A = 2; B = 4; C = 2; D = 1. O maior WSJF vem primeiro: B.'},
+{d:'product',q:'Qual é o principal objetivo de um MVP?',
+o:['Testar uma hipótese com usuários reais com o menor esforço possível e aprender','Entregar a primeira versão completa do produto','Reduzir custos eliminando testes','Atender a todos os requisitos obrigatórios do contrato'],
+e:'O MVP serve para aprender. O MMF é o menor conjunto que já gera valor no mercado.'},
+{d:'product',q:'A equipe quer visualizar a jornada do usuário e decidir o que entra em cada release. Qual técnica usar?',
+o:['Story mapping','Diagrama de Gantt','Matriz RACI','Estrutura analítica do projeto (EAP)'],
+e:'O story map organiza as atividades do usuário na horizontal e o detalhe na vertical. Os cortes horizontais formam releases.'},
+{d:'product',q:'O PO e a equipe discordam se uma história atende ao que o cliente precisa. O que mais evita esse problema?',
+o:['Definir critérios de aceite claros na história, por exemplo no formato Dado/Quando/Então, junto com a equipe','Aumentar a DoD com mais itens de documentação','Deixar o testador decidir no fim da sprint','Pedir ao cliente aprovação formal por escrito de cada tarefa'],
+e:'Critérios de aceite (o "C" de Confirmação) são específicos de cada história. A DoD é o padrão geral.'},
+{d:'product',q:'O PO escreve sozinho, com todo detalhe, as histórias para os próximos seis meses. Qual é o problema?',
+o:['O backlog deve ser refinado de forma colaborativa e progressiva: itens do topo detalhados, itens distantes mais genéricos','Nenhum: um backlog detalhado reduz riscos','O PO deveria detalhar para os próximos doze meses','As histórias deveriam ser escritas pelo Scrum Master'],
+e:'Backlog DEEP: detalhado de forma apropriada e emergente. Detalhar cedo demais gera desperdício quando as coisas mudam.'},
+{d:'product',q:'Stakeholders medem o sucesso pela quantidade de funcionalidades entregues por trimestre. O que o PO deve propor?',
+o:['Métricas de resultado, como adoção, retenção, satisfação ou impacto no negócio','Aumentar a velocidade da equipe','Medir horas trabalhadas por funcionalidade','Manter a métrica, pois é objetiva'],
+e:'Outcomes acima de outputs: mais funcionalidades não significa mais valor.'},
+{d:'product',q:'Um item leva 30 dias do pedido até a entrega, mas só 4 dias de trabalho efetivo. Qual técnica ajuda a analisar isso, e qual a eficiência do ciclo?',
+o:['Value Stream Mapping; cerca de 13%','Planning poker; cerca de 87%','Diagrama de Ishikawa; 4%','Burndown; cerca de 26%'],
+e:'Eficiência do ciclo = tempo de valor ÷ lead time = 4/30 ≈ 13%. O VSM expõe as esperas.'},
+{d:'product',q:'O cliente só verá o produto na entrega final, daqui a oito meses. Qual é o MAIOR risco e a melhor ação?',
+o:['Construir a coisa errada; trazer o cliente para reviews e demonstrações frequentes','Atrasar o cronograma; adicionar folga ao plano','Estourar o orçamento; congelar o escopo','Nenhum risco relevante; manter o plano'],
+e:'Feedback frequente reduz o risco de não entregar valor. Ciclos curtos de inspeção e adaptação.'},
+{d:'product',q:'Para orientar decisões de design, a equipe cria descrições fictícias e realistas de usuários típicos. Isso se chama:',
+o:['Personas','Épicos','Wireframes','Spikes'],
+e:'Personas representam arquétipos de usuários e ajudam a manter o foco em quem recebe o valor.'},
+{d:'product',q:'Quem é o responsável final por ordenar o product backlog?',
+o:['O Product Owner, com informações da equipe e dos stakeholders','O Scrum Master','O patrocinador do projeto','A equipe de desenvolvimento, por votação'],
+e:'O PO é o dono do backlog e responde pela maximização do valor, colaborando com todos.'},
+
+// ---------- DELIVERY ----------
+{d:'delivery',q:'Um quadro Kanban tem, em média, 20 itens em andamento e a equipe conclui 5 itens por semana. Qual é o lead time médio esperado?',
+o:['4 semanas','5 semanas','0,25 semana','100 semanas'],
+e:'Lei de Little: lead time = WIP ÷ throughput = 20 ÷ 5 = 4 semanas.'},
+{d:'delivery',q:'Em um diagrama de fluxo cumulativo (CFD), a faixa "Em teste" está ficando cada vez mais larga. O que isso indica?',
+o:['Um gargalo em testes, com WIP acumulando nessa etapa','Que a equipe está entregando mais rápido','Que o escopo do projeto diminuiu','Que a velocidade está estável'],
+e:'Uma faixa que se alarga mostra itens chegando mais rápido do que saem daquela etapa.'},
+{d:'delivery',q:'As últimas três sprints tiveram velocidade 30, 32 e 28. Quantos pontos a equipe deve planejar para a próxima sprint?',
+o:['Cerca de 30 pontos, a média recente','32 pontos, o melhor resultado','35 pontos, para crescer','28 pontos, sempre o mínimo'],
+e:'Use a média como base de previsão, ajustando à capacidade da sprint (férias, feriados).'},
+{d:'delivery',q:'Um gerente compara a velocidade de duas equipes e cobra a mais "lenta". Qual a melhor resposta?',
+o:['Explicar que story points são relativos a cada equipe e não servem para comparar equipes','Padronizar os pontos entre as equipes','Pedir que a equipe lenta aumente as estimativas','Substituir story points por horas'],
+e:'A velocidade é uma ferramenta de planejamento da própria equipe. Usá-la como meta ou para comparar causa inflação de pontos.'},
+{d:'delivery',q:'O burndown da sprint ficou plano nos primeiros sete dias e caiu bruscamente no final. O que isso sugere?',
+o:['Itens grandes ou muito trabalho iniciado e pouco concluído; é preciso fatiar melhor e terminar antes de começar','Que a equipe é muito produtiva no fim','Que o escopo aumentou','Que o gráfico está errado'],
+e:'Uma linha plana mostra que nada está sendo concluído. Limitar o WIP e fatiar melhor ajuda o fluxo.'},
+{d:'delivery',q:'Qual gráfico mostra com mais clareza a mudança de escopo ao longo do tempo?',
+o:['Burnup','Burndown','Gráfico de velocidade','Diagrama de Pareto'],
+e:'O burnup mostra a linha de trabalho concluído e a linha de escopo total separadamente.'},
+{d:'delivery',q:'A equipe não consegue estimar uma história porque não conhece a API de um parceiro. O que fazer?',
+o:['Criar um spike com timebox para pesquisar e reduzir a incerteza','Estimar alto para ter margem','Pular a história','Pedir ao PO que estime'],
+e:'O spike é um experimento curto e com timebox para gerar conhecimento e permitir estimar.'},
+{d:'delivery',q:'Os defeitos aumentam a cada sprint e a velocidade está caindo. Qual a provável causa e a ação?',
+o:['Dívida técnica acumulada; torná-la visível no backlog e reservar capacidade para refatoração, priorizando com o PO','A equipe está desmotivada; dar um bônus','O PO prioriza mal; trocar o PO','As sprints são curtas; aumentá-las'],
+e:'Dívida técnica reduz a velocidade e a qualidade. Deve ser visível e tratada de forma contínua.'},
+{d:'delivery',q:'Uma história foi desenvolvida e aprovada pelo PO, mas os testes de regressão exigidos pela DoD não foram executados. Ela está pronta?',
+o:['Não. Sem cumprir a DoD, ela não está concluída e volta para o backlog','Sim, pois o PO aprovou','Sim, desde que os testes sejam feitos na próxima sprint','Depende da velocidade da equipe'],
+e:'A Definition of Done é o padrão de qualidade inegociável do incremento.'},
+{d:'delivery',q:'A equipe tem muitos itens em andamento ao mesmo tempo e poucos são concluídos. Qual a MELHOR ação?',
+o:['Estabelecer limites de WIP e focar em terminar antes de começar novos itens','Adicionar mais colunas ao quadro','Iniciar mais itens para aproveitar o tempo ocioso','Aumentar a duração da iteração'],
+e:'Limitar o WIP reduz a troca de tarefas e o lead time: "pare de começar, comece a terminar".'},
+{d:'delivery',q:'A daily virou uma reunião em que cada membro relata status ao gerente. O que o Scrum Master deve fazer?',
+o:['Reorientar a daily para a sincronização da equipe rumo à meta da sprint; o gerente pode observar','Cancelar a daily','Pedir que o gerente conduza a reunião','Transformá-la em um relatório escrito'],
+e:'A daily é da equipe e para a equipe: planejar as próximas 24 horas e expor impedimentos.'},
+{d:'delivery',q:'Há meses as retrospectivas geram as mesmas ações, que nunca são implementadas. O que fazer?',
+o:['Escolher uma ou duas ações concretas, com responsável, incluí-las no trabalho da próxima sprint e revisá-las na retro seguinte','Parar de fazer retrospectivas','Aumentar a lista de ações','Pedir ao gerente para cobrar as ações'],
+e:'Melhoria contínua precisa de foco e acompanhamento. Variar o formato também ajuda.'},
+{d:'delivery',q:'No planning poker, uma pessoa estima 2 e outra 13 para a mesma história. O que fazer?',
+o:['Pedir que os dois expliquem o raciocínio e estimar novamente','Tirar a média (7,5)','Usar a estimativa do mais experiente','Usar a maior estimativa por segurança'],
+e:'A divergência revela entendimentos diferentes. A conversa é o maior valor da técnica.'},
+{d:'delivery',q:'Um item tem alto risco técnico e alto valor de negócio. Quando ele deve ser tratado, segundo o backlog ajustado ao risco?',
+o:['Cedo, para reduzir o risco e aprender enquanto o custo de mudar é baixo','No final, quando a equipe tiver mais experiência','Nunca, por ser arriscado','Apenas depois de aprovação do comitê de riscos'],
+e:'Alto valor e alto risco vêm primeiro. As respostas a riscos entram no backlog como itens.'},
+{d:'delivery',q:'O código está pronto, mas espera duas semanas por uma janela de deploy. Que desperdício Lean é esse e como reduzi-lo?',
+o:['Trabalho parcialmente feito / espera; adotar CI/CD e releases menores e frequentes','Superprodução; parar de desenvolver','Defeitos; mais testes manuais','Movimentação; reorganizar o escritório'],
+e:'Trabalho não entregue não gera valor e acumula risco. Automação e lotes menores reduzem a espera.'},
+{d:'delivery',q:'Qual descreve corretamente o TDD?',
+o:['Escrever um teste que falha, implementar o mínimo para passar e refatorar','Testar tudo ao final da sprint','Escrever a documentação de testes antes de desenvolver','Delegar os testes a uma equipe separada'],
+e:'O ciclo vermelho → verde → refatorar melhora o design e cria uma rede de segurança.'},
+{d:'delivery',q:'Qual é a diferença entre lead time e cycle time?',
+o:['Lead time vai do pedido até a entrega; cycle time vai do início do trabalho até a conclusão','São a mesma métrica','Cycle time inclui o tempo de espera no backlog; lead time não','Lead time mede só o tempo de testes'],
+e:'O cycle time é parte do lead time. O lead time é o que o cliente percebe.'},
+{d:'delivery',q:'No meio da sprint, o PO quer incluir um item urgente que não ameaça a meta da sprint. Qual é o procedimento adequado?',
+o:['O PO conversa com a equipe; se couber sem comprometer a meta, a equipe pode negociar o escopo do sprint backlog','O PO adiciona o item diretamente, sem conversar','O Scrum Master cancela a sprint','O item só pode entrar no próximo release'],
+e:'O escopo pode ser renegociado com a equipe preservando a meta. Só o PO pode cancelar a sprint, se a meta ficar obsoleta.'},
+{d:'delivery',q:'Qual prática XP consiste em dois desenvolvedores trabalhando juntos no mesmo código, alternando papéis?',
+o:['Programação em par','Propriedade coletiva','Integração contínua','Refatoração'],
+e:'O pareamento melhora a qualidade e espalha o conhecimento, reduzindo a dependência de uma só pessoa.'}
+];
+Q.forEach((q,i)=>q.id='q'+i);
+
+const CARDS = [
+['mindset','Manifesto Ágil','4 valores: indivíduos e interações; software funcionando; colaboração com o cliente; responder a mudanças. Cada um é valorizado mais que o item correspondente à direita.'],
+['mindset','Segurança psicológica','Crença compartilhada de que a equipe é um lugar seguro para assumir riscos interpessoais: errar, discordar, perguntar.'],
+['mindset','Cynefin – complexo','Causa e efeito só são percebidos em retrospecto. Resposta: sondar → perceber → responder.'],
+['mindset','Tailoring','Adaptar abordagem, processos e práticas ao contexto do projeto e da organização.'],
+['mindset','Ciclo de vida híbrido','Combinação de elementos preditivos e adaptativos no mesmo projeto ou organização.'],
+['mindset','Aprendizado validado','Conhecimento obtido com experimentos reais, que confirma ou refuta uma hipótese.'],
+['mindset','Kaizen','Melhoria contínua em pequenos passos, como hábito da equipe.'],
+['mindset','Agilidade empresarial','Agilidade em toda a organização: portfólio, financiamento por fluxo de valor, governança leve, equipes estáveis.'],
+['leadership','Liderança servidora','Liderar servindo: remover impedimentos, proteger a equipe, facilitar, fazer coaching e desenvolver pessoas.'],
+['leadership','Tuckman','Forming → Storming → Norming → Performing → Adjourning.'],
+['leadership','Shu-Ha-Ri','Shu: seguir as regras. Ha: adaptar as regras. Ri: transcender as regras.'],
+['leadership','Speed Leas – níveis','1 Problema a resolver · 2 Desacordo · 3 Competição · 4 Cruzada · 5 Guerra mundial.'],
+['leadership','Motivação (Pink)','Autonomia, maestria e propósito.'],
+['leadership','T-shaped','Profundidade em uma especialidade e amplitude em várias outras (generalista-especialista).'],
+['leadership','Team charter','Acordo criado pela equipe com valores, regras de trabalho, comunicação, DoD.'],
+['leadership','Fist of five','Votação de 0 a 5 dedos. Quem mostra 1 ou 2 explica a preocupação antes de prosseguir.'],
+['leadership','Comunicação osmótica','Informação absorvida por estar perto da equipe (co-localização).'],
+['leadership','Radiador de informação','Exibição visível e atualizada do estado do trabalho: quadro, burnup, impedimentos.'],
+['product','INVEST','Independente, Negociável, Valiosa, Estimável, Small, Testável.'],
+['product','3 Cs','Cartão, Conversa, Confirmação.'],
+['product','Backlog DEEP','Detalhado apropriadamente, Estimado, Emergente, Priorizado.'],
+['product','MoSCoW','Must, Should, Could, Won\'t (desta vez).'],
+['product','Kano','Básicas, de desempenho, encantadoras e indiferentes.'],
+['product','WSJF','Weighted Shortest Job First = custo do atraso ÷ duração (ou tamanho).'],
+['product','MVP','Mínimo Produto Viável: menor esforço para validar uma hipótese com usuários reais.'],
+['product','MMF','Minimum Marketable Feature: menor funcionalidade que entrega valor ao mercado.'],
+['product','Story mapping','Mapa da jornada do usuário (horizontal) com detalhes (vertical); os cortes horizontais definem releases.'],
+['product','Dado / Quando / Então','Formato Gherkin para critérios de aceite e cenários de BDD.'],
+['product','Value Stream Mapping','Mapa do fluxo de valor ponta a ponta para encontrar espera e desperdício. Eficiência = tempo de valor ÷ lead time.'],
+['delivery','Lei de Little','Lead time médio = WIP ÷ throughput.'],
+['delivery','CFD','Diagrama de fluxo cumulativo. Faixa que se alarga indica gargalo.'],
+['delivery','Burnup','Mostra o trabalho concluído e o escopo total; evidencia a mudança de escopo.'],
+['delivery','Velocidade','Pontos concluídos por iteração. Serve para previsão da própria equipe, não para comparar.'],
+['delivery','Spike','Pesquisa com timebox para reduzir incerteza técnica ou permitir estimar.'],
+['delivery','Definition of Done','Critérios de qualidade que todo incremento deve cumprir para ser considerado pronto.'],
+['delivery','Dívida técnica','Custo futuro de atalhos técnicos. Deve ser visível e paga continuamente.'],
+['delivery','Limite de WIP','Máximo de itens por etapa; reduz troca de tarefas e lead time.'],
+['delivery','TDD','Teste antes do código: vermelho → verde → refatorar.'],
+['delivery','Desperdícios Lean (software)','Trabalho parcialmente feito, funcionalidades extras, reaprendizado, handoffs, atrasos, troca de tarefas, defeitos.'],
+['delivery','Timeboxes do Scrum (sprint de 1 mês)','Planning 8h · Daily 15min · Review 4h · Retro 3h.'],
+['delivery','Backlog ajustado ao risco','Backlog que inclui itens de resposta a riscos, priorizados junto com as funcionalidades.']
+];
+
+// ================== ESTADO ==================
+let store={stats:{},sims:[]};
+try{const s=localStorage.getItem('acp-estudos-v1'); if(s) store=Object.assign(store,JSON.parse(s));}catch(e){}
+function save(){try{localStorage.setItem('acp-estudos-v1',JSON.stringify(store));}catch(e){}}
+function record(id,ok){const s=store.stats[id]||{v:0,c:0,last:null};s.v++;if(ok)s.c++;s.last=ok;store.stats[id]=s;save();}
+
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const prep=q=>({...q,order:shuffle([0,1,2,3]),pick:null});
+const $=s=>document.querySelector(s);
+const app=$('#app');
+
+const VIEWS=[['inicio','Início'],['resumos','Resumos'],['flashcards','Flashcards'],['quiz','Quiz'],['simulado','Simulado'],['desempenho','Desempenho']];
+function renderNav(cur){$('#nav').innerHTML=VIEWS.map(([k,n])=>`<a href="#${k}" class="${k===cur?'on':''}">${n}</a>`).join('');}
+function route(){const v=(location.hash||'#inicio').slice(1);const ok=VIEWS.some(x=>x[0]===v)?v:'inicio';renderNav(ok);({inicio,resumos,flashcards,quiz,simulado,desempenho})[ok]();window.scrollTo(0,0);}
+window.addEventListener('hashchange',route);
+
+function modal(html){$('#modal').innerHTML=html?`<div class="modal"><div class="card">${html}</div></div>`:'';}
+
+// ================== INÍCIO ==================
+function inicio(){
+  const vistas=Object.keys(store.stats).length, acertos=Object.values(store.stats).filter(s=>s.last).length;
+  app.innerHTML=`
+  <h1>Seu caderno de estudos para o PMI-ACP</h1>
+  <p class="muted">Organizado pelos quatro domínios do curso e do Exam Content Outline em vigor. Os resumos e as questões foram escritos para treino e não reproduzem o material oficial do PMI.</p>
+  <div class="card">
+    <h2>A prova</h2>
+    <div class="grid">
+      <div><div class="stat">120</div><div class="muted small">questões de múltipla escolha</div></div>
+      <div><div class="stat">180 min</div><div class="muted small">com um intervalo de 10 minutos</div></div>
+      <div><div class="stat">4</div><div class="muted small">domínios</div></div>
+    </div>
+    <div style="margin-top:14px">${Object.entries(DOM).map(([k,d])=>`<div class="dbar"><span>${domTag(k)}</span><div class="progress"><i style="width:${d.peso*3.2}%;background:${d.cor}"></i></div><b>${d.peso}%</b></div>`).join('')}</div>
+  </div>
+  <div class="grid">
+    <a class="card" href="#resumos" style="text-decoration:none;color:inherit"><h3 style="margin-top:0">📘 Resumos</h3><p class="small muted">Conceitos-chave de cada domínio, tabelas e dicas de prova.</p></a>
+    <a class="card" href="#flashcards" style="text-decoration:none;color:inherit"><h3 style="margin-top:0">🃏 Flashcards</h3><p class="small muted">${CARDS.length} termos para memorizar.</p></a>
+    <a class="card" href="#quiz" style="text-decoration:none;color:inherit"><h3 style="margin-top:0">✅ Quiz</h3><p class="small muted">Questões por domínio com feedback imediato.</p></a>
+    <a class="card" href="#simulado" style="text-decoration:none;color:inherit"><h3 style="margin-top:0">⏱️ Simulado</h3><p class="small muted">Prova cronometrada com a proporção oficial dos domínios.</p></a>
+  </div>
+  <div class="card">
+    <h2>Como pensar nas questões</h2>
+    <ul>${DICAS.map(d=>`<li>${d}</li>`).join('')}</ul>
+    <p class="small muted">Você já respondeu ${vistas} de ${Q.length} questões do banco${vistas?`, e acertou ${acertos} na última tentativa de cada uma`:''}.</p>
+  </div>`;
+}
+
+// ================== RESUMOS ==================
+let resDom='mindset';
+function resumos(){
+  app.innerHTML=`
+  <h1>Resumos por domínio</h1>
+  <div class="chips" style="margin-bottom:16px">${Object.entries(DOM).map(([k,d])=>`<button class="chip ${k===resDom?'on':''}" data-d="${k}">${d.nome} · ${d.peso}%</button>`).join('')}</div>
+  <div class="card summary" style="border-top:5px solid ${DOM[resDom].cor}">
+    <h2>${DOM[resDom].nome}</h2>${RESUMOS[resDom]}
+    <div class="row" style="margin-top:16px"><button class="btn" id="goQuiz">Praticar ${DOM[resDom].nome} no quiz →</button></div>
+  </div>`;
+  app.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{resDom=b.dataset.d;resumos();});
+  $('#goQuiz').onclick=()=>{quizCfg.dom=resDom;quizState=null;location.hash='quiz';};
+}
+
+// ================== FLASHCARDS ==================
+let fc={dom:'all',deck:null,i:0,flip:false,ok:0,no:0};
+function buildDeck(){fc.deck=shuffle(CARDS.filter(c=>fc.dom==='all'||c[0]===fc.dom));fc.i=0;fc.flip=false;fc.ok=0;fc.no=0;}
+function flashcards(){
+  if(!fc.deck)buildDeck();
+  const c=fc.deck[fc.i];
+  const chips=`<div class="chips" style="margin-bottom:16px"><button class="chip ${fc.dom==='all'?'on':''}" data-d="all">Todos</button>${Object.entries(DOM).map(([k,d])=>`<button class="chip ${k===fc.dom?'on':''}" data-d="${k}">${d.nome}</button>`).join('')}</div>`;
+  if(!c){
+    app.innerHTML=`<h1>Flashcards</h1>${chips}<div class="card"><h2>Rodada concluída</h2><p>Sabia: <b>${fc.ok}</b> · Revisar: <b>${fc.no}</b></p><button class="btn" id="again">Embaralhar de novo</button></div>`;
+    $('#again').onclick=()=>{buildDeck();flashcards();};
+  } else {
+    app.innerHTML=`<h1>Flashcards</h1>${chips}
+    <div class="row muted small" style="justify-content:space-between;margin-bottom:6px"><span>${fc.i+1} de ${fc.deck.length}</span><span>✓ ${fc.ok} · ↻ ${fc.no}</span></div>
+    <div class="progress" style="margin-bottom:14px"><i style="width:${fc.i/fc.deck.length*100}%"></i></div>
+    <div class="card flash" id="fcard" style="border-top:5px solid ${DOM[c[0]].cor}">
+      <div style="margin-bottom:12px">${domTag(c[0])}</div>
+      ${fc.flip?`<div class="def">${c[2]}</div><div class="muted small" style="margin-top:12px">${c[1]}</div>`:`<div class="term">${c[1]}</div><div class="muted small" style="margin-top:14px">toque para virar</div>`}
+    </div>
+    <div class="row" style="justify-content:center">
+      ${fc.flip?`<button class="btn ghost" id="no">↻ Revisar depois</button><button class="btn" id="ok">✓ Eu sabia</button>`:`<button class="btn" id="flip">Virar</button>`}
+    </div>`;
+    const flip=()=>{fc.flip=!fc.flip;flashcards();};
+    $('#fcard').onclick=flip; if($('#flip'))$('#flip').onclick=flip;
+    if($('#ok'))$('#ok').onclick=()=>{fc.ok++;fc.i++;fc.flip=false;flashcards();};
+    if($('#no'))$('#no').onclick=()=>{fc.no++;fc.deck.push(c);fc.i++;fc.flip=false;flashcards();};
+  }
+  app.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{fc.dom=b.dataset.d;buildDeck();flashcards();});
+}
+
+// ================== QUIZ ==================
+let quizCfg={dom:'all',n:10}, quizState=null;
+function quiz(){
+  if(!quizState){
+    const erros=Q.filter(q=>store.stats[q.id]&&store.stats[q.id].last===false).length;
+    app.innerHTML=`<h1>Quiz</h1><p class="muted">Questões situacionais com explicação logo após cada resposta.</p>
+    <div class="card">
+      <h3 style="margin-top:0">Domínio</h3>
+      <div class="chips"><button class="chip ${quizCfg.dom==='all'?'on':''}" data-d="all">Todos</button>${Object.entries(DOM).map(([k,d])=>`<button class="chip ${k===quizCfg.dom?'on':''}" data-d="${k}">${d.nome} (${Q.filter(q=>q.d===k).length})</button>`).join('')}<button class="chip ${quizCfg.dom==='erros'?'on':''}" data-d="erros" ${erros?'':'disabled'}>Só as que errei (${erros})</button></div>
+      <h3>Quantidade</h3>
+      <div class="chips">${[5,10,15].map(n=>`<button class="chip ${quizCfg.n===n?'on':''}" data-n="${n}">${n}</button>`).join('')}</div>
+      <div style="margin-top:18px"><button class="btn" id="start">Começar</button></div>
+    </div>`;
+    app.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{quizCfg.dom=b.dataset.d;quiz();});
+    app.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{quizCfg.n=+b.dataset.n;quiz();});
+    $('#start').onclick=()=>{
+      let pool=Q.filter(q=>quizCfg.dom==='all'||q.d===quizCfg.dom||(quizCfg.dom==='erros'&&store.stats[q.id]&&store.stats[q.id].last===false));
+      quizState={qs:shuffle(pool).slice(0,quizCfg.n).map(prep),i:0,score:0};quiz();
+    };
+    return;
+  }
+  const st=quizState, q=st.qs[st.i];
+  if(!q){
+    app.innerHTML=`<h1>Quiz</h1><div class="card"><h2>Resultado</h2><div class="stat">${st.score}/${st.qs.length}</div><p class="muted">${Math.round(st.score/st.qs.length*100)}% de acerto</p><div class="row"><button class="btn" id="re">Novo quiz</button><a class="btn ghost" href="#resumos">Revisar resumos</a></div></div>`;
+    $('#re').onclick=()=>{quizState=null;quiz();};return;
+  }
+  const answered=q.pick!==null;
+  app.innerHTML=`<h1>Quiz</h1>
+  <div class="row muted small" style="justify-content:space-between;margin-bottom:6px"><span>Questão ${st.i+1} de ${st.qs.length}</span><span>Acertos: ${st.score}</span></div>
+  <div class="progress" style="margin-bottom:14px"><i style="width:${st.i/st.qs.length*100}%"></i></div>
+  <div class="card">
+    <div style="margin-bottom:10px">${domTag(q.d)}</div>
+    <p style="font-weight:500;font-size:1.05rem">${q.q}</p>
+    ${q.order.map(oi=>{let cls='';if(answered){if(oi===0)cls='right';else if(oi===q.pick)cls='wrong';}return `<button class="opt ${cls}" data-o="${oi}" ${answered?'disabled':''}>${q.o[oi]}</button>`;}).join('')}
+    ${answered?`<div class="expl"><b>${q.pick===0?'✓ Correto.':'✗ Não foi dessa vez.'}</b> ${q.e}</div><div style="margin-top:14px"><button class="btn" id="next">${st.i+1<st.qs.length?'Próxima →':'Ver resultado'}</button></div>`:''}
+  </div>
+  <button class="btn ghost small" id="quit">Sair do quiz</button>`;
+  app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{q.pick=+b.dataset.o;const ok=q.pick===0;if(ok)st.score++;record(q.id,ok);quiz();});
+  if($('#next'))$('#next').onclick=()=>{st.i++;quiz();window.scrollTo(0,0);};
+  $('#quit').onclick=()=>{quizState=null;quiz();};
+}
+
+// ================== SIMULADO ==================
+let sim=null, simN=40, timerH=null;
+function compose(n){
+  const per={};let tot=0;
+  for(const k in DOM){per[k]=Math.min(Math.round(n*DOM[k].peso/100),Q.filter(q=>q.d===k).length);tot+=per[k];}
+  const order=['delivery','mindset','leadership','product'];let i=0;
+  while(tot<n&&i<40){const k=order[i%4];if(per[k]<Q.filter(q=>q.d===k).length){per[k]++;tot++;}i++;}
+  while(tot>n){const k=order[i%4];if(per[k]>0){per[k]--;tot--;}i++;}
+  let out=[];for(const k in per)out=out.concat(shuffle(Q.filter(q=>q.d===k)).slice(0,per[k]));
+  return shuffle(out).map(q=>({...prep(q),flag:false}));
+}
+const fmt=s=>{s=Math.max(0,s);const m=Math.floor(s/60),ss=s%60;return `${m}:${String(ss).padStart(2,'0')}`;};
+function tick(){
+  if(!sim||sim.done)return;
+  const left=Math.round((sim.end-Date.now())/1000);
+  const el=$('#tmr'); if(el){el.textContent=fmt(left);el.style.color=left<300?'var(--bad)':'';}
+  if(left<=0)finishSim();
+}
+function simulado(){
+  if(!sim){
+    const sizes=[[20,'Rápido'],[40,'Médio'],[Q.length,'Banco completo']];
+    app.innerHTML=`<h1>Simulado</h1><p class="muted">Questões sorteadas na proporção oficial dos domínios, com o mesmo ritmo da prova real: 1,5 minuto por questão. A explicação só aparece no final.</p>
+    <div class="card"><h3 style="margin-top:0">Tamanho</h3>
+    <div class="chips">${sizes.map(([n,l])=>`<button class="chip ${simN===n?'on':''}" data-n="${n}">${l} · ${n} questões · ${Math.round(n*1.5)} min</button>`).join('')}</div>
+    <div style="margin-top:18px"><button class="btn" id="go">Iniciar simulado</button></div></div>
+    ${store.sims.length?`<div class="card"><h3 style="margin-top:0">Últimos simulados</h3>${store.sims.slice(-5).reverse().map(s=>`<div class="row small" style="justify-content:space-between;border-top:1px solid var(--line);padding:6px 0"><span>${new Date(s.t).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})}</span><span>${s.n} questões</span><b>${s.pct}%</b></div>`).join('')}</div>`:''}`;
+    app.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{simN=+b.dataset.n;simulado();});
+    $('#go').onclick=()=>{const qs=compose(simN);sim={qs,i:0,end:Date.now()+qs.length*90000,done:false};clearInterval(timerH);timerH=setInterval(tick,1000);simulado();};
+    return;
+  }
+  if(sim.done)return simResult();
+  const q=sim.qs[sim.i], nAns=sim.qs.filter(x=>x.pick!==null).length;
+  app.innerHTML=`<div class="row" style="justify-content:space-between"><h1 style="margin:0">Simulado</h1><span class="timer">⏱ <span id="tmr">--:--</span></span></div>
+  <p class="muted small">${nAns} de ${sim.qs.length} respondidas</p>
+  <div class="card">
+    <div class="row" style="justify-content:space-between;margin-bottom:10px"><b>Questão ${sim.i+1}</b><button class="chip ${q.flag?'on':''}" id="flag">⚑ ${q.flag?'Marcada':'Marcar para revisão'}</button></div>
+    <p style="font-weight:500;font-size:1.05rem">${q.q}</p>
+    ${q.order.map(oi=>`<button class="opt ${q.pick===oi?'sel':''}" data-o="${oi}">${q.o[oi]}</button>`).join('')}
+    <div class="row" style="justify-content:space-between;margin-top:14px">
+      <button class="btn ghost" id="prev" ${sim.i===0?'disabled':''}>← Anterior</button>
+      ${sim.i+1<sim.qs.length?`<button class="btn" id="nxt">Próxima →</button>`:`<button class="btn" id="fin2">Finalizar</button>`}
+    </div>
+  </div>
+  <div class="card"><div class="row" style="justify-content:space-between"><b class="small">Navegação</b><button class="btn ghost small" id="fin">Finalizar simulado</button></div>
+  <div class="qnav">${sim.qs.map((x,j)=>`<button data-j="${j}" class="${x.pick!==null?'ans':''} ${j===sim.i?'cur':''} ${x.flag?'flag':''}">${j+1}</button>`).join('')}</div></div>`;
+  tick();
+  app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{q.pick=+b.dataset.o;simulado();});
+  $('#flag').onclick=()=>{q.flag=!q.flag;simulado();};
+  $('#prev').onclick=()=>{sim.i--;simulado();};
+  if($('#nxt'))$('#nxt').onclick=()=>{sim.i++;simulado();};
+  app.querySelectorAll('.qnav button').forEach(b=>b.onclick=()=>{sim.i=+b.dataset.j;simulado();});
+  const ask=()=>{const left=sim.qs.length-sim.qs.filter(x=>x.pick!==null).length;
+    modal(`<h3 style="margin-top:0">Finalizar o simulado?</h3><p>${left?`Ainda há <b>${left}</b> questão(ões) sem resposta.`:'Todas as questões foram respondidas.'}</p><div class="row"><button class="btn" id="mYes">Finalizar</button><button class="btn ghost" id="mNo">Continuar</button></div>`);
+    $('#mYes').onclick=()=>{modal('');finishSim();};$('#mNo').onclick=()=>modal('');};
+  $('#fin').onclick=ask; if($('#fin2'))$('#fin2').onclick=ask;
+}
+function finishSim(){
+  if(!sim||sim.done)return;
+  sim.done=true;clearInterval(timerH);
+  sim.qs.forEach(q=>{if(q.pick!==null)record(q.id,q.pick===0);});
+  const ok=sim.qs.filter(q=>q.pick===0).length;
+  sim.pct=Math.round(ok/sim.qs.length*100);
+  store.sims.push({t:Date.now(),n:sim.qs.length,pct:sim.pct});store.sims=store.sims.slice(-30);save();
+  if(location.hash!=='#simulado')location.hash='simulado';else simulado();
+}
+function simResult(){
+  const by={};for(const k in DOM)by[k]={t:0,c:0};
+  sim.qs.forEach(q=>{by[q.d].t++;if(q.pick===0)by[q.d].c++;});
+  const ok=sim.qs.filter(q=>q.pick===0).length;
+  app.innerHTML=`<h1>Resultado do simulado</h1>
+  <div class="card"><div class="grid"><div><div class="stat">${sim.pct}%</div><div class="muted small">${ok} de ${sim.qs.length} corretas</div></div>
+  <div class="small muted" style="align-self:center">O PMI não divulga nota de corte. Use cerca de 70–75% nos simulados como sinal de que você está pronta e veja abaixo em quais domínios focar.</div></div>
+  <div style="margin-top:12px">${Object.entries(by).filter(([k,v])=>v.t).map(([k,v])=>{const p=Math.round(v.c/v.t*100);return `<div class="dbar"><span>${domTag(k)}</span><div class="progress"><i style="width:${p}%;background:${DOM[k].cor}"></i></div><b>${p}%</b></div>`;}).join('')}</div>
+  <div class="row" style="margin-top:14px"><button class="btn" id="new">Novo simulado</button><button class="btn ghost" id="onlyWrong">Mostrar só os erros</button></div></div>
+  <div class="card" id="revlist"></div>`;
+  let onlyWrong=false;
+  const draw=()=>{$('#revlist').innerHTML='<h2>Revisão</h2>'+sim.qs.map((q,j)=>({q,j})).filter(({q})=>!onlyWrong||q.pick!==0).map(({q,j})=>`
+    <div class="rev"><div class="row" style="margin-bottom:6px"><b>${j+1}.</b> ${domTag(q.d)} ${q.pick===0?'<span style="color:var(--ok)">✓</span>':q.pick===null?'<span class="muted">sem resposta</span>':'<span style="color:var(--bad)">✗</span>'}</div>
+    <p style="margin:.3em 0;font-weight:500">${q.q}</p>
+    ${q.pick!==null&&q.pick!==0?`<p class="small" style="color:var(--bad);margin:.2em 0">Sua resposta: ${q.o[q.pick]}</p>`:''}
+    <p class="small" style="color:var(--ok);margin:.2em 0">Correta: ${q.o[0]}</p>
+    <div class="expl small">${q.e}</div></div>`).join('');};
+  draw();
+  $('#onlyWrong').onclick=()=>{onlyWrong=!onlyWrong;$('#onlyWrong').textContent=onlyWrong?'Mostrar todas':'Mostrar só os erros';draw();};
+  $('#new').onclick=()=>{sim=null;simulado();};
+}
+
+// ================== DESEMPENHO ==================
+function desempenho(){
+  const by={};for(const k in DOM)by[k]={tot:Q.filter(q=>q.d===k).length,seen:0,ok:0};
+  Q.forEach(q=>{const s=store.stats[q.id];if(s){by[q.d].seen++;if(s.last)by[q.d].ok++;}});
+  const weakest=Object.entries(by).filter(([k,v])=>v.seen).sort((a,b)=>a[1].ok/a[1].seen-b[1].ok/b[1].seen)[0];
+  app.innerHTML=`<h1>Desempenho</h1><p class="muted small">Fica salvo neste navegador. Considera a última resposta dada a cada questão.</p>
+  <div class="card"><h3 style="margin-top:0">Acerto por domínio</h3>
+  ${Object.entries(by).map(([k,v])=>{const p=v.seen?Math.round(v.ok/v.seen*100):0;return `<div class="dbar"><span>${domTag(k)}</span><div class="progress"><i style="width:${p}%;background:${DOM[k].cor}"></i></div><b>${v.seen?p+'%':'—'}</b></div><div class="small muted" style="margin:-4px 0 8px 120px">${v.seen} de ${v.tot} questões vistas</div>`;}).join('')}
+  ${weakest?`<div class="tip">Foco sugerido: <b>${DOM[weakest[0]].nome}</b>. <a href="#resumos" id="toWeak">Rever o resumo</a> e depois refazer as questões que errou no quiz.</div>`:'<p class="muted">Responda algumas questões no quiz ou no simulado para ver seu desempenho.</p>'}
+  </div>
+  ${store.sims.length?`<div class="card"><h3 style="margin-top:0">Evolução nos simulados</h3><div style="display:flex;align-items:flex-end;gap:6px;height:140px;border-bottom:1px solid var(--line);padding-top:10px">${store.sims.slice(-15).map(s=>`<div title="${s.pct}%" style="flex:1;background:var(--ink);opacity:.8;height:${Math.max(4,s.pct)}%;border-radius:4px 4px 0 0"></div>`).join('')}</div><p class="small muted">Últimos ${Math.min(15,store.sims.length)} simulados (% de acerto)</p></div>`:''}
+  <button class="btn ghost" id="reset">Zerar progresso</button>`;
+  if($('#toWeak'))$('#toWeak').onclick=()=>{resDom=weakest[0];};
+  $('#reset').onclick=()=>{modal(`<h3 style="margin-top:0">Zerar todo o progresso?</h3><p>Apaga as estatísticas e o histórico de simulados deste navegador.</p><div class="row"><button class="btn" id="mYes">Zerar</button><button class="btn ghost" id="mNo">Cancelar</button></div>`);
+    $('#mYes').onclick=()=>{store={stats:{},sims:[]};save();modal('');desempenho();};$('#mNo').onclick=()=>modal('');};
+}
+
+route();
+</script>
+</body>
+</html>
